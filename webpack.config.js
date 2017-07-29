@@ -1,8 +1,8 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'client/dist');
-var APP_DIR = path.resolve(__dirname, 'client');
+const BUILD_DIR = path.resolve(__dirname, 'graphiQLClient/dist');
+const APP_DIR = path.resolve(__dirname, 'graphiQLClient');
 
 // console.log("path.resolve()", path.resolve());
 // console.log("path.resolve(__dirname)", path.resolve(__dirname));
@@ -20,19 +20,20 @@ var config = {
       {
         test: /\.jsx?/,
         include: APP_DIR,
-        loader: 'babel'
+        loader: 'babel-loader',
+        exclude: /node_modules/
       },
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    })
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     'NODE_ENV': JSON.stringify('production')
+    //   }
+    // })
   ],
 };
 

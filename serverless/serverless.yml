@@ -18,7 +18,7 @@ service: Nomii-Rewards-Serverless
 # frameworkVersion: "=X.X.X"
 
 custom:
-  defaultStage: staging
+  defaultStage: dev
 #  productionStream: arn:aws:dynamodb:us-west-2:151302725877:table/Users/stream/2016-12-16T22:04:17.359
 #  devStream: arn:aws:dynamodb:us-west-2:594750710208:table/Users/stream/2016-12-27T16:29:37.237
 
@@ -28,7 +28,7 @@ provider:
   stage: ${opt:stage, self:custom.defaultStage}
   # Deploys to dev stage by default.
   # To deploy for production, run 'serverless deploy --stage production'
-  profile: ${self:provider.stage}Profile
+  profile: ${self:provider.stage}ProfileClevo
   region: us-west-2
 
 # you can overwrite defaults here
@@ -73,17 +73,17 @@ functions:
         method: post
         cors: true
 
-  sendCardPushNotification:
-    handler: scheduled.sendCardPushNotification
-    events:
-      - http:
-          path: notification
-          method: get
-          cors: true
-      - schedule:
-#          rate: rate(24 hours)
-          rate: cron(0 23 * * ? *) # schedule it to run everyday at 4:00 pm, UTC 23:00 == PST 16:00
-          enabled: true
+#  sendCardPushNotification:
+#    handler: scheduled.sendCardPushNotification
+#    events:
+#      - http:
+#          path: notification
+#          method: get
+#          cors: true
+#      - schedule:
+##          rate: rate(24 hours)
+#          rate: cron(0 23 * * ? *) # schedule it to run everyday at 4:00 pm, UTC 23:00 == PST 16:00
+#          enabled: true
 
 #  createStampsByRedeemedCoupons:
 #    handler: oneTime.createStampEventsFromRedeemedCoupons

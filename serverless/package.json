@@ -1,5 +1,5 @@
 {
-  "name": "nomii-serverless",
+  "name": "clevo-manual-category-serverless",
   "version": "1.0.0",
   "description": "",
   "main": "handler.js",

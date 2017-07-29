@@ -4,10 +4,13 @@ import GraphiQL from 'graphiql';
 import fetch from 'isomorphic-fetch';
 
 // Production
-const link = "https://bnbs6szfk8.execute-api.us-west-2.amazonaws.com/dev";
+// const link = "https://bnbs6szfk8.execute-api.us-west-2.amazonaws.com/dev";
 
 // Staging
 // const link = "https://aq9i785i63.execute-api.us-west-2.amazonaws.com/staging";
+
+// Dev
+const link = "https://ny2sg417sj.execute-api.us-west-2.amazonaws.com/dev";
 
 function graphQLFetcher(graphQLParams) {
   return fetch(link + '/graphql', {
