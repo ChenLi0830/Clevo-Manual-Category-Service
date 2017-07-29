@@ -9,8 +9,8 @@
     "deploy-production": "cd serverless && serverless --stage=dev deploy",
     "host-server": "DEBUG_MODE=true nodemon ./serverless/dev/server.js",
     "dev-client": "webpack -d --watch",
-    "host-client": "cd graphiQLClient && firebase serve",
-    "client": "webpack && cd graphiQLClient && firebase serve",
+    "host-client": "http-server ./graphiQLClient/",
+    "client": "webpack && cd graphiQLClient && http-server ./graphiQLClient/",
     "host-fake-db": "json-server --watch ./serverless/dev/db.json"
   },
   "author": "Chen Li",
@@ -31,6 +31,7 @@
     "babel-loader": "^7.1.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "http-server": "^0.10.0",
     "path": "^0.12.7",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1"
