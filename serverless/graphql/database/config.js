@@ -15,21 +15,13 @@ if (process.env.DEBUG_MODE) {
   });
 }
 
-const UserTable = "Nomii-Rewards-Users";
-const RestaurantTable = "Nomii-Rewards-Restaurants";
-const CouponTable = "Nomii-Rewards-Coupons";
-const StampEventTable = "Nomii-Rewards-Stamp-Events";
-const FeedbackEventTable = "Nomii-Rewards-Feedback-Events";
-const FeedbackTagTable = "Nomii-Rewards-Feedback-Tags";
-const SkippedFeedbackTable = "Nomii-Rewards-Skipped-Feedbacks";
+const OperatorTable = "Clevo-Manual-Operators";
+const SpeechTable = "Clevo-Categorized-Speech-Table";
+const SentenceTable = "Clevo-Categorized-Sentence-Table";
 
 module.exports = {
-  UserTable,
-  RestaurantTable,
-  CouponTable,
-  StampEventTable,
-  FeedbackEventTable,
-  FeedbackTagTable,
-  SkippedFeedbackTable,
+  OperatorTable,
+  SpeechTable,
+  SentenceTable,
   AWS
 };

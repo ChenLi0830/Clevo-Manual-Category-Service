@@ -4,11 +4,6 @@ const path = require('path');
 const BUILD_DIR = path.resolve(__dirname, 'graphiQLClient/dist');
 const APP_DIR = path.resolve(__dirname, 'graphiQLClient');
 
-// console.log("path.resolve()", path.resolve());
-// console.log("path.resolve(__dirname)", path.resolve(__dirname));
-// console.log("BUILD_DIR", BUILD_DIR);
-
-
 var config = {
   entry: APP_DIR + '/GraphiQL.js',
   output: {

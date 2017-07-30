@@ -14,87 +14,40 @@ const graphql = require('graphql'),
     GraphQLBoolean = graphql.GraphQLBoolean,
     GraphQLID = graphql.GraphQLID;
 
-const PINType = require('./types/PINType');
-
-const CardType = require('./types/CardType');
-
-const RestaurantType = require('./types/RestaurantType');
-
-const RedeemedCouponType = require('./types/RedeemedCouponType');
-
-const CouponType = require('./types/CouponType');
-
-const UserType = require('./types/UserType');
-
-const StampEventType = require('./types/StampEventType');
-
-const RestaurantVisitStatisticsType = require('./types/RestaurantVisitStatisticsType');
-
-const FeedBackType = require('./types/FeedBackType');
+const OperatorType = require('./types/OperatorType');
+const SentenceType = require('./types/SentenceType');
+const SpeechType = require('./types/SpeechType');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    user: {
-      type: UserType,
-      args: {id: {type: GraphQLID}},
+    operator: {
+      type: OperatorType,
+      args: {cellphone: {type: GraphQLID}},
       resolve: (parentValue, args) => {
-        return db.userGet(args.id);
-      },
-    },
-    allRestaurantCards: {
-      type: new GraphQLList(CardType),
-      args: {userId: {type: GraphQLID}},
-      resolve: (parentValue, args) => {
-        return db.userCardGetAll(args.userId);
+        return db.operatorGet(args.cellphone);
       }
     },
-    coupons: {
-      type: new GraphQLList(CouponType),
-      resolve: (parentValue, args) => {
-        return db.couponGetAll();
-      }
-    },
-    restaurant: {
-      type: RestaurantType,
-      args: {id: {type: GraphQLID}},
-      resolve: (parentValue, args) => {
-        return db.restaurantGet(args.id);
-      }
-    },
-    stampEvents: {
-      type: new GraphQLList(StampEventType),
+    sentence: {
+      type: SentenceType,
       args: {
-        restaurantId: {type: GraphQLID},
-        daysToCover: {type: GraphQLFloat},
-        endTo: {type: GraphQLInt},
+        categoryName: {type: GraphQLString},
+        fileNameBeginTime: {type: GraphQLString},
       },
       resolve: (parentValue, args) => {
-        return db.stampEventGetDuringPeriod(args.restaurantId ,args.daysToCover, args.endTo);
+        return db.sentenceGet(args.categoryName, args.fileNameBeginTime);
       }
     },
-    RestaurantVisitStatistics: {
-      type: RestaurantVisitStatisticsType,
+    speech: {
+      type: SpeechType,
       args: {
-        restaurantId: {type: GraphQLID},
-        daysToCover: {type: GraphQLFloat},
-        endTo: {type: GraphQLInt},
+        fileName: {type: GraphQLString},
+        operatorId: {type: GraphQLString},
       },
       resolve: (parentValue, args) => {
-        return db.restaurantVisitStatisticsGet(args.restaurantId, args.daysToCover, args.endTo);
+        return db.sentenceGet(args.fileName, args.operatorId);
       }
-    },
-    ratingFeedBacks:{
-      type: new GraphQLList(FeedBackType),
-      args:{
-        restaurantId: {type: GraphQLID},
-        daysToCover: {type: GraphQLFloat},
-        endTo: {type: GraphQLInt},
-      },
-      resolve: (parentValue, args) => {
-        return db.restaurantRatingFeedbacksGet(args.restaurantId, args.daysToCover, args.endTo);
-      }
-    },
+    }
   }
 });
 
