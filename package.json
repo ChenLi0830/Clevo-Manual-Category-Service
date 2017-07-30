@@ -7,11 +7,12 @@
     "deploy-staging": "cd serverless && serverless --stage staging deploy",
     "log": "cd serverless && sls logs -f graphql --tail",
     "deploy-production": "cd serverless && serverless --stage=dev deploy",
-    "host-server": "DEBUG_MODE=true nodemon ./serverless/dev/server.js",
     "dev-client": "webpack -d --watch",
     "host-client": "http-server ./graphiQLClient/",
-    "client": "webpack && cd graphiQLClient && http-server ./graphiQLClient/",
-    "host-fake-db": "json-server --watch ./serverless/dev/db.json"
+    "client": "webpack && http-server ./graphiQLClient/ -p 1943",
+    "host-fake-db": "json-server --watch ./serverless/dev/db.json",
+    "host-local-DyanmoDB": "java -Djava.library.path=./DynamoDBLocal_lib -jar /Users/Chen/Developer/Repository/temp/dynamodb_local_latest/DynamoDBLocal.jar -sharedDb",
+    "host-server": "DEBUG_MODE=true nodemon ./serverless/dev/server.js"
   },
   "author": "Chen Li",
   "license": "ISC",

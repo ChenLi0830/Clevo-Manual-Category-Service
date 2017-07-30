@@ -60,3 +60,4 @@ typings/
 graphiQLClient/dist
 serverless/.serverless
 .idea
+shared-local-instance.db
