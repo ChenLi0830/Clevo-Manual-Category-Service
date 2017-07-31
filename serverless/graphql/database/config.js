@@ -18,10 +18,12 @@ if (process.env.DEBUG_MODE) {
 const OperatorTable = "Clevo-Manual-Operators";
 const SpeechTable = "Clevo-Categorized-Speech-Table";
 const SentenceTable = "Clevo-Categorized-Sentence-Table";
+const RawSpeechTable = "transcription_table";
 
 module.exports = {
   OperatorTable,
   SpeechTable,
   SentenceTable,
+  RawSpeechTable,
   AWS
 };

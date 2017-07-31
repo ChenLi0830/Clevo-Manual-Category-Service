@@ -9,6 +9,8 @@ const graphql = require('graphql'),
     GraphQLString = graphql.GraphQLString,
     GraphQLID = graphql.GraphQLID;
 
+const RawSpeechType = require('./RawSpeechType');
+
 const OperatorType = new GraphQLObjectType({
   name: "Operator",
   fields: () => ({
@@ -16,6 +18,12 @@ const OperatorType = new GraphQLObjectType({
     cellphone: {type: GraphQLID},
     categorizedFileNames: {
       type: new GraphQLList(GraphQLString)
+    },
+    rawSpeech: {
+      type: RawSpeechType,
+      resolve(parentValue, args){
+        return db.rawSpeechGetForOperator(parentValue.cellphone);
+      },
     },
   })
 });

@@ -1,6 +1,6 @@
 'use strict';
 const create = require('./create');
-const CouponTable = require('../config').OperatorTable;
+const TableName = require('../config').OperatorTable;
 const _ = require('lodash');
 const api = require('../../api');
 const getOperator = require('./operatorGet');
@@ -15,7 +15,7 @@ const createOperator = (args) => {
         }
         
         args.id = args.cellphone;
-        return create(CouponTable, args);
+        return create(TableName, args);
       })
 };
 

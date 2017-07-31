@@ -8,12 +8,12 @@ const graphql = require('graphql'),
     GraphQLList = graphql.GraphQLList,
     GraphQLString = graphql.GraphQLString,
     GraphQLBoolean = graphql.GraphQLBoolean,
+    GraphQLInputObjectType = graphql.GraphQLInputObjectType,
     GraphQLID = graphql.GraphQLID;
 
-const SentenceType = new GraphQLObjectType({
-  name: "Sentence",
+const SentenceInputType = new GraphQLInputObjectType({
+  name: "SentenceInput",
   fields: () => ({
-    id: {type: GraphQLID},
     categoryName: {type: GraphQLString},
     fileNameBeginTime: {type: GraphQLString},
     operatorId: {type: GraphQLID},
@@ -25,4 +25,4 @@ const SentenceType = new GraphQLObjectType({
   })
 });
 
-module.exports = SentenceType;
+module.exports = SentenceInputType;

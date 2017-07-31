@@ -5,8 +5,8 @@
 const TableName = require('../config').SentenceTable;
 const get = require('./get');
 
-const getSentence = (categoryName, fileNameWithBeginTime) => {
-  return get(TableName, {categoryName, fileNameWithBeginTime});
+const getSentence = (categoryName, fileNameBeginTime) => {
+  return get(TableName, {categoryName, fileNameBeginTime});
 };
 
 module.exports = getSentence;

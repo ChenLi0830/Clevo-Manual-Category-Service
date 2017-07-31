@@ -23,7 +23,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     operator: {
       type: OperatorType,
-      args: {cellphone: {type: GraphQLID}},
+      args: {cellphone: {type: GraphQLString}},
       resolve: (parentValue, args) => {
         return db.operatorGet(args.cellphone);
       }

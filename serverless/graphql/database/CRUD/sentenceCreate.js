@@ -8,15 +8,16 @@ const _ = require('lodash');
 const api = require('../../api');
 const getSentence = require('./sentenceGet');
 
+// categoryName, fileNameBeginTime, operatorId, fileName, text, bg, ed, speaker
 const createSentence = (args) => {
-  return getSentence(args.categoryName, args.fileNameWithBeginTime)
+  return getSentence(args.categoryName, args.fileNameBeginTime)
   //Check for duplication
       .then(duplicate => {
         if (duplicate && duplicate.categoryName) {
           // operator exist
           return Promise.reject(new Error("Sentence with same categoryName and fileNameBeginTime already exist"));
         }
-        args.id = args.fileNameWithBeginTime;
+        args.id = args.fileNameBeginTime;
         return create(TableName, args);
       })
 };

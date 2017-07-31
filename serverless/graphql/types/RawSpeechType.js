@@ -10,19 +10,14 @@ const graphql = require('graphql'),
     GraphQLBoolean = graphql.GraphQLBoolean,
     GraphQLID = graphql.GraphQLID;
 
-const SentenceType = new GraphQLObjectType({
-  name: "Sentence",
+const RawSpeechType = new GraphQLObjectType({
+  name: "RawSpeech",
   fields: () => ({
-    id: {type: GraphQLID},
-    categoryName: {type: GraphQLString},
-    fileNameBeginTime: {type: GraphQLString},
-    operatorId: {type: GraphQLID},
     fileName: {type: GraphQLString},
-    text: {type: GraphQLString},
-    bg: {type: GraphQLString},
-    ed: {type: GraphQLString},
-    speaker: {type: GraphQLString},
+    transcribedAt: {type: GraphQLString},
+    transcriptionText: {type: GraphQLString},
+    categorizedCount: {type: GraphQLInt},
   })
 });
 
-module.exports = SentenceType;
+module.exports = RawSpeechType;

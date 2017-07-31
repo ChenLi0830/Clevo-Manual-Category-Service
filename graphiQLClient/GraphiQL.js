@@ -10,7 +10,7 @@ import fetch from 'isomorphic-fetch';
 // const link = "https://aq9i785i63.execute-api.us-west-2.amazonaws.com/staging";
 
 // Dev
-const link = "https://ny2sg417sj.execute-api.us-west-2.amazonaws.com/dev";
+const link = "https://el9pqobs08.execute-api.us-west-2.amazonaws.com/dev";
 
 function graphQLFetcher(graphQLParams) {
   return fetch(link + '/graphql', {

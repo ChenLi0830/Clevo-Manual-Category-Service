@@ -16,6 +16,7 @@ const createSentence = (args) => {
           // operator exist
           return Promise.reject(new Error("Speech with same fileName and operatorId already exist"));
         }
+        args.id = args.fileName + args.operatorId;
         return create(TableName, args);
       })
 };

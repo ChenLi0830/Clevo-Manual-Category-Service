@@ -12,7 +12,8 @@
     "client": "webpack && http-server ./graphiQLClient/ -p 1943",
     "host-fake-db": "json-server --watch ./serverless/dev/db.json",
     "host-local-DyanmoDB": "java -Djava.library.path=./DynamoDBLocal_lib -jar /Users/Chen/Developer/Repository/temp/dynamodb_local_latest/DynamoDBLocal.jar -sharedDb",
-    "host-server": "DEBUG_MODE=true nodemon ./serverless/dev/server.js"
+    "host-local-server": "DEBUG_MODE=true nodemon ./serverless/dev/server.js",
+    "check-syntax": "node ./serverless/graphql/index.js"
   },
   "author": "Chen Li",
   "license": "ISC",
