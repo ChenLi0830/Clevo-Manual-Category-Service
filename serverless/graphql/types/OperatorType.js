@@ -16,6 +16,8 @@ const OperatorType = new GraphQLObjectType({
   fields: () => ({
     id: {type: GraphQLID}, // cellphone
     cellphone: {type: GraphQLID},
+    speechCount: {type: GraphQLInt},
+    sentenceCount: {type: GraphQLInt},
     categorizedFileNames: {
       type: new GraphQLList(GraphQLString)
     },
