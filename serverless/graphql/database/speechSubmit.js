@@ -23,11 +23,15 @@ const speechSubmit = (args) => {
         }),
     operatorGet(args.operatorId)
         .then(operator => {
+          let newCategorizedFileNames = operator.categorizedFileNames || [];
+          newCategorizedFileNames = [...newCategorizedFileNames, args.fileName];
+          
           let newFields = {
             speechCount: ~~operator.speechCount + 1,
             sentenceCount: ~~operator.sentenceCount + args.sentenceList.length,
+            categorizedFileNames: newCategorizedFileNames,
           };
-          return operatorUpdate(args.fileName, newFields, {});
+          return operatorUpdate(args.operatorId, newFields, {});
         })
   ])
   // create speech and sentences
