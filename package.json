@@ -35,6 +35,8 @@
     "babel-preset-react": "^6.24.1",
     "http-server": "^0.10.0",
     "path": "^0.12.7",
+    "serverless-dynamodb-local": "^0.2.22",
+    "serverless-plugin-warmup": "^3.0.5-rc.1",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1"
   }

@@ -19,8 +19,21 @@ service: Clevo-Manual-Category
 
 custom:
   defaultStage: dev
-#  productionStream: arn:aws:dynamodb:us-west-2:151302725877:table/Users/stream/2016-12-16T22:04:17.359
-#  devStream: arn:aws:dynamodb:us-west-2:594750710208:table/Users/stream/2016-12-27T16:29:37.237
+  #  productionStream: arn:aws:dynamodb:us-west-2:151302725877:table/Users/stream/2016-12-16T22:04:17.359
+  #  devStream: arn:aws:dynamodb:us-west-2:594750710208:table/Users/stream/2016-12-27T16:29:37.237
+#  'dynamodb' Below is for local dynamoDB
+  dynamodb:
+    start:
+      port: 8000
+      cors: '*'
+      migrate: true
+      seed: true
+    seed:
+      test:
+        sources:
+          - table: transcription_table
+            sources: [./dev/localDynamoDBSeed/transcription_table.json]
+
 
 provider:
   name: aws
@@ -47,7 +60,16 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:us-west-2:*:*"
-
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource:
+      - Fn::Join:
+        - ':'
+        - - arn:aws:lambda
+          - Ref: AWS::Region
+          - Ref: AWS::AccountId
+          - function:${self:service}-${opt:stage, self:provider.stage}-*
 # you can define service wide environment variables here
 #  environment:
 #    variable1: value1
@@ -64,8 +86,8 @@ package:
 #    - exclude-me-dir/**
 
 functions:
-
   graphql:
+    warmup: true
     handler: handler.graphql
     events:
     - http:
@@ -177,18 +199,14 @@ resources:
       DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: fileName
+          - AttributeName: fileName
             AttributeType: S
-          -
-            AttributeName: operatorId
+          - AttributeName: operatorId
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: fileName
+          - AttributeName: fileName
             KeyType: HASH
-          -
-            AttributeName: operatorId
+          - AttributeName: operatorId
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -200,46 +218,60 @@ resources:
       DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: categoryName
+          - AttributeName: categoryName
             AttributeType: S
-          -
-            AttributeName: fileNameBeginTime
+          - AttributeName: fileNameBeginTime
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: categoryName
+          - AttributeName: categoryName
             KeyType: HASH
-          -
-            AttributeName: fileNameBeginTime
+          - AttributeName: fileNameBeginTime
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: 'Clevo-Categorized-Sentence-Table'
 
+    RawSpeechTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: 'transcription_table'
+        AttributeDefinitions:
+          - AttributeName: fileName
+            AttributeType: S
+          - AttributeName: xfTaskId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: fileName
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: xfTaskId
+            KeySchema:
+              - AttributeName: xfTaskId
+                KeyType: HASH
+            Projection:
+#              NonKeyAttributes:
+#                - user_id
+#                - user_organization_id
+#              ProjectionType: INCLUDE
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
 
-#
-#    SkippedFeedbackTable:
-#      Type: 'AWS::DynamoDB::Table'
-#      DeletionPolicy: Retain
-#      Properties:
-#        AttributeDefinitions:
-#          -
-#            AttributeName: userId
-#            AttributeType: S
-#          -
-#            AttributeName: visitedAt
-#            AttributeType: N
-#        KeySchema:
-#          -
-#            AttributeName: userId
-#            KeyType: HASH
-#          -
-#            AttributeName: visitedAt
-#            KeyType: RANGE
-#        ProvisionedThroughput:
-#          ReadCapacityUnits: 1
-#          WriteCapacityUnits: 1
-#        TableName: 'Nomii-Rewards-Skipped-Feedbacks'
+#    domain:
+#      sources:
+#        - table: domain-widgets
+#          sources: [./domainWidgets.json]
+#        - table: domain-fidgets
+#          sources: [./domainFidgets.json]
 
+
+
+plugins:
+  - serverless-plugin-warmup
+  - serverless-dynamodb-local

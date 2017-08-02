@@ -20,6 +20,7 @@ const rawSpeechGet = require('./CRUD/rawSpeechGet');
 const rawSpeechGetAll = require('./CRUD/rawSpeechGetAll');
 const rawSpeechUpdate = require('./CRUD/rawSpeechUpdate');
 const rawSpeechGetForOperator = require('./rawSpeechGetForOperator');
+const rawSpeechesGetByTaskId = require('./getRawSpeechByTaskId');
 
 module.exports = {
   operatorGet,
@@ -39,4 +40,5 @@ module.exports = {
   rawSpeechGetAll,
   rawSpeechUpdate,
   rawSpeechGetForOperator,
+  rawSpeechesGetByTaskId,
 };

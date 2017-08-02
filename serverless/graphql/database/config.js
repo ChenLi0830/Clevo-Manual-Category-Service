@@ -20,10 +20,13 @@ const SpeechTable = "Clevo-Categorized-Speech-Table";
 const SentenceTable = "Clevo-Categorized-Sentence-Table";
 const RawSpeechTable = "transcription_table";
 
+const RawSpeechIndexTaskId = "xfTaskId-index";
+
 module.exports = {
   OperatorTable,
   SpeechTable,
   SentenceTable,
   RawSpeechTable,
+  RawSpeechIndexTaskId,
   AWS
 };
