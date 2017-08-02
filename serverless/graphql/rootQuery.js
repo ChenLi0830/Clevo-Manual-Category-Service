@@ -17,6 +17,7 @@ const graphql = require('graphql'),
 const OperatorType = require('./types/OperatorType');
 const SentenceType = require('./types/SentenceType');
 const SpeechType = require('./types/SpeechType');
+const RawSpeechType = require('./types/RawSpeechType');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -46,6 +47,25 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve: (parentValue, args) => {
         return db.sentenceGet(args.fileName, args.operatorId);
+      }
+    },
+    rawSpeech: {
+      type: new GraphQLList(RawSpeechType),
+      args: {
+        xfTaskId: {type: GraphQLString},
+      },
+      resolve: (parentValue, args) => {
+        return db.rawSpeechListQueryInTaskIdIndex(args.xfTaskId);
+      }
+    },
+    rawSpeech2: {
+      type: new GraphQLList(RawSpeechType),
+      args: {
+        fileName: {type: GraphQLString},
+        transcribedAt: {type: GraphQLString},
+      },
+      resolve: (parentValue, args) => {
+        return db.rawSpeechListQueryInFileTimeIndex(args.fileName, args.transcribedAt);
       }
     }
   }

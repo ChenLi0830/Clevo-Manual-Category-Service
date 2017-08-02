@@ -34,17 +34,20 @@ const getUrgency = (stampValidDays, expireInDays) => {
   return urgency;
 };
 
+//Get params for DynamoDB table update calls
 /**
- * Get params for DynamoDB table update calls
+ * Get 'UpdateExpression' from key-value pair object
+ * @param {object} newFields - single layer object with scala keys and values
  * */
 const getUpdateExpression = (newFields) => {
   let UpdateExpression = "SET";
   for (let fieldKey of Object.keys(newFields)) {
     UpdateExpression += ` #${fieldKey} = :${fieldKey},`
   }
-  //Return UpdateExpression after trimming the last character
+  //Return UpdateExpression after trimming the last character ','
   return UpdateExpression.slice(0, -1);
 };
+
 const getExpressionAttributeNames = (newFields) => {
   let ExpressionAttributeNames = {};
   for (let fieldKey of Object.keys(newFields)) {
@@ -52,13 +55,34 @@ const getExpressionAttributeNames = (newFields) => {
   }
   return ExpressionAttributeNames;
 };
-const getExpressionAttributeValues = (newFields) => {
+
+/**
+ * Get 'ExpressionAttributeValues' from key-value pair object
+ * @param {object} obj - single layer object with scala keys and values
+ * */
+const getExpressionAttributeValues = (obj) => {
   let ExpressionAttributeValues = {};
-  for (let fieldKey of Object.keys(newFields)) {
-    ExpressionAttributeValues[`:${fieldKey}`] = newFields[fieldKey];
+  for (let fieldKey of Object.keys(obj)) {
+    ExpressionAttributeValues[`:${fieldKey}`] = obj[fieldKey];
   }
   return ExpressionAttributeValues;
 };
+
+/**
+ * Get 'KeyConditionExpression' from key-value pair object
+ * @param {object} key - single layer object with scala keys and values
+ * */
+const getKeyConditionExpression = (key) => {
+  // if just partition key
+  if (Object.keys(key).length===1) {
+    return ` ${Object.keys(key)[0]} = :${Object.keys(key)[0]}`;
+  }
+  // if both partition key and range key
+  else {
+    return ` ${Object.keys(key)[0]} = :${Object.keys(key)[0]} AND ${Object.keys(key)[1]} = :${Object.keys(key)[1]} `;
+  }
+};
+
 
 /**
  * Prepare args to be ready for inserting into DynamoDB
@@ -104,6 +128,7 @@ module.exports = {
   getUpdateExpression,
   getExpressionAttributeNames,
   getExpressionAttributeValues,
+  getKeyConditionExpression,
   removeInvalidArgs,
   userVisitedRestaurantBefore,
   getUserPhotoURL,

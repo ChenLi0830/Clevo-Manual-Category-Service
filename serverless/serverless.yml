@@ -242,17 +242,32 @@ resources:
             AttributeType: S
           - AttributeName: xfTaskId
             AttributeType: S
+          - AttributeName: transcribedAt
+            AttributeType: S
         KeySchema:
           - AttributeName: fileName
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+
         GlobalSecondaryIndexes:
-          - IndexName: xfTaskId
+          - IndexName: xfTaskId-index
             KeySchema:
               - AttributeName: xfTaskId
                 KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+
+          - IndexName: file-time-index
+            KeySchema:
+              - AttributeName: fileName
+                KeyType: HASH
+              - AttributeName: transcribedAt
+                KeyType: RANGE
             Projection:
 #              NonKeyAttributes:
 #                - user_id
@@ -262,7 +277,6 @@ resources:
             ProvisionedThroughput:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
-
 #    domain:
 #      sources:
 #        - table: domain-widgets
