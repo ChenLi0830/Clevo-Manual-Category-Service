@@ -181,6 +181,7 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
+        TableName: 'Clevo-Manual-Operators'
         AttributeDefinitions:
           -
             AttributeName: cellphone
@@ -192,12 +193,12 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: 'Clevo-Manual-Operators'
 
     CategorizedSpeechTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
+        TableName: 'Clevo-Categorized-Speech-Table'
         AttributeDefinitions:
           - AttributeName: fileName
             AttributeType: S
@@ -211,12 +212,12 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: 'Clevo-Categorized-Speech-Table'
 
     CategorizedSentenceTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
+        TableName: 'Clevo-Categorized-Sentence-Table'
         AttributeDefinitions:
           - AttributeName: categoryName
             AttributeType: S
@@ -230,7 +231,6 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: 'Clevo-Categorized-Sentence-Table'
 
     RawSpeechTable:
       Type: 'AWS::DynamoDB::Table'

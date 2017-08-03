@@ -35,7 +35,7 @@ const queryByIndex = (tableName, indexName, key, options={}) => {
         return reject(err);
       }
       console.log(`Successfully queried ${data.Count} item(s) from ${tableName}, ${data.ScannedCount} items were scanned in total`);
-      console.log("data.Items", data.Items);
+      // console.log("data.Items", data.Items);
       resolve(data.Items);
       // else callback(null, data);
     });

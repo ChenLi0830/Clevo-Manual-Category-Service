@@ -18,6 +18,7 @@ const SpeechType = new GraphQLObjectType({
     fileName: {type: GraphQLString},
     operatorId: {type: GraphQLID},
     needReverseSpeaker: {type: GraphQLBoolean},
+    businessType: {type: new GraphQLList(GraphQLString)},
     sentenceList: {type: new GraphQLList(SentenceType)},
   })
 });

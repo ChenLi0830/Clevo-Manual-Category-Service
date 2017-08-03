@@ -48,6 +48,7 @@ const mutation = new GraphQLObjectType({
         fileName: {type: GraphQLString},
         operatorId: {type: GraphQLString},
         needReverseSpeaker: {type: GraphQLBoolean},
+        businessType: {type: new GraphQLList(GraphQLString)},
         // categorizedSpeech: {type: GraphQLString},
         sentenceList: {type: new GraphQLList(SentenceInputType)},
       },
