@@ -31,7 +31,7 @@ custom:
     seed:
       test:
         sources:
-          - table: transcription_table
+          - table: Clevo-Raw-Speech-Table
             sources: [./dev/localDynamoDBSeed/transcription_table.json]
 
 
@@ -77,7 +77,9 @@ provider:
 # you can add packaging information here
 package:
   exclude:
-    - dev/**
+    - "dev/**"
+    - "**/test.js"
+    - "**.test.js"
 #  include:
 #    - include-me.js
 #    - include-me-dir/**
@@ -236,7 +238,7 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
-        TableName: 'transcription_table'
+        TableName: 'Clevo-Raw-Speech-Table'
         AttributeDefinitions:
           - AttributeName: fileName
             AttributeType: S
@@ -250,7 +252,6 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-
         GlobalSecondaryIndexes:
           - IndexName: xfTaskId-index
             KeySchema:
@@ -277,12 +278,51 @@ resources:
             ProvisionedThroughput:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
-#    domain:
-#      sources:
-#        - table: domain-widgets
-#          sources: [./domainWidgets.json]
-#        - table: domain-fidgets
-#          sources: [./domainFidgets.json]
+
+    transcription_table:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: 'transcription_table'
+        AttributeDefinitions:
+          - AttributeName: fileName
+            AttributeType: S
+          - AttributeName: xfTaskId
+            AttributeType: S
+          - AttributeName: transcribedAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: transcribedAt
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: xfTaskId-index
+            KeySchema:
+              - AttributeName: xfTaskId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+
+          - IndexName: file-time-index
+            KeySchema:
+              - AttributeName: fileName
+                KeyType: HASH
+              - AttributeName: transcribedAt
+                KeyType: RANGE
+            Projection:
+#              NonKeyAttributes:
+#                - user_id
+#                - user_organization_id
+#              ProjectionType: INCLUDE
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
 
 
 

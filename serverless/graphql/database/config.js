@@ -18,11 +18,11 @@ if (process.env.DEBUG_MODE) {
 const OperatorTable = "Clevo-Manual-Operators";
 const SpeechTable = "Clevo-Categorized-Speech-Table";
 const SentenceTable = "Clevo-Categorized-Sentence-Table";
-const RawSpeechTable = "transcription_table";
+const RawSpeechTable = "Clevo-Raw-Speech-Table";
+// const RawSpeechTable = "transcription_table";
 
 const RawSpeechIndexTaskId = "xfTaskId-index";
 const RawSpeechIndexFileTime = "file-time-index";
-
 
 module.exports = {
   OperatorTable,

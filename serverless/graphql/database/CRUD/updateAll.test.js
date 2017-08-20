@@ -11,7 +11,22 @@ const updateAll = require('./updateAll');
 const TableName = require('../config').RawSpeechTable;
 
 describe('updateAll', () => {
-  it('no force', () => {
+  // mute console logs
+  console = {log: ()=>{}, error: ()=>{}};
+  
+  test('no force, update 1st time', () => {
+    return updateAll(TableName, ["fileName"], {compandId: "test"})
+        .then(updatedItems => {
+          let undefinedCount = 0;
+          for (let item of updatedItems) {
+            undefinedCount += item === undefined ? 1 : 0;
+          }
+          // console.log("result", result);
+          expect(undefinedCount).toBe(0);
+        })
+  });
+  
+  test('no force, update 2nd time', () => {
     return updateAll(TableName, ["fileName"], {compandId: "test"})
         .then(updatedItems => {
           let undefinedCount = 0;
@@ -23,7 +38,7 @@ describe('updateAll', () => {
         })
   });
   
-  it('force update', () => {
+  test('force update', () => {
     return updateAll(TableName, ["fileName"], {compandId: "test"}, true)
         .then(updatedItems => {
           let undefinedCount = 0;
