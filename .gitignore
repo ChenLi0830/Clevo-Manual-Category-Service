@@ -61,3 +61,5 @@ graphiQLClient/dist
 serverless/.serverless
 .idea
 shared-local-instance.db
+serverless/oneTime/20170623121310_642_15930803468_601.mp3
+serverless/oneTime/hello.wav
