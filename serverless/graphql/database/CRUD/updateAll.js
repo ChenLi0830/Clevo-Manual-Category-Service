@@ -6,7 +6,7 @@ const getAll = require('./getAll');
 const update = require('./update');
 
 /**
- * Update fields for all items in a table
+ * Update fields for all items in a table, use this when new fields are added to pre-existed table
  * @param {string} tableName
  * @param {object} keyNameArray - the key of the table, for example, ["restaurantId", "stampedAt"], or ["id"]
  * @param {object} newFields - new fields to be updated, for example, {stampTotal: 5, cards: [{id:1, stampCount:2}, {id:2, stampCount:1}]}

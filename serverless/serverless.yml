@@ -21,7 +21,7 @@ custom:
   defaultStage: dev
   #  productionStream: arn:aws:dynamodb:us-west-2:151302725877:table/Users/stream/2016-12-16T22:04:17.359
   #  devStream: arn:aws:dynamodb:us-west-2:594750710208:table/Users/stream/2016-12-27T16:29:37.237
-#  'dynamodb' Below is for local dynamoDB
+  #  'dynamodb' Below is for local dynamoDB
   dynamodb:
     start:
       port: 8000
@@ -32,6 +32,7 @@ custom:
       test:
         sources:
           - table: Clevo-Raw-Speech-Table
+#          - table: transcription_table
             sources: [./dev/localDynamoDBSeed/transcription_table.json]
 
 
@@ -242,87 +243,87 @@ resources:
         AttributeDefinitions:
           - AttributeName: fileName
             AttributeType: S
-          - AttributeName: xfTaskId
-            AttributeType: S
-          - AttributeName: transcribedAt
-            AttributeType: S
+#          - AttributeName: xfTaskId
+#            AttributeType: S
+#          - AttributeName: transcribedAt
+#            AttributeType: S
         KeySchema:
           - AttributeName: fileName
             KeyType: HASH
         ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        GlobalSecondaryIndexes:
-          - IndexName: xfTaskId-index
-            KeySchema:
-              - AttributeName: xfTaskId
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+#        GlobalSecondaryIndexes:
+#          - IndexName: xfTaskId-index
+#            KeySchema:
+#              - AttributeName: xfTaskId
+#                KeyType: HASH
+#            Projection:
+#              ProjectionType: ALL
+#            ProvisionedThroughput:
+#              ReadCapacityUnits: 1
+#              WriteCapacityUnits: 1
+#
+#          - IndexName: file-time-index
+#            KeySchema:
+#              - AttributeName: fileName
+#                KeyType: HASH
+#              - AttributeName: transcribedAt
+#                KeyType: RANGE
+#            Projection:
+##              NonKeyAttributes:
+##                - user_id
+##                - user_organization_id
+##              ProjectionType: INCLUDE
+#              ProjectionType: ALL
+#            ProvisionedThroughput:
+#              ReadCapacityUnits: 1
+#              WriteCapacityUnits: 1
 
-          - IndexName: file-time-index
-            KeySchema:
-              - AttributeName: fileName
-                KeyType: HASH
-              - AttributeName: transcribedAt
-                KeyType: RANGE
-            Projection:
-#              NonKeyAttributes:
-#                - user_id
-#                - user_organization_id
-#              ProjectionType: INCLUDE
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
-
-    transcription_table:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        TableName: 'transcription_table'
-        AttributeDefinitions:
-          - AttributeName: fileName
-            AttributeType: S
-          - AttributeName: xfTaskId
-            AttributeType: S
-          - AttributeName: transcribedAt
-            AttributeType: S
-        KeySchema:
-          - AttributeName: transcribedAt
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        GlobalSecondaryIndexes:
-          - IndexName: xfTaskId-index
-            KeySchema:
-              - AttributeName: xfTaskId
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
-
-          - IndexName: file-time-index
-            KeySchema:
-              - AttributeName: fileName
-                KeyType: HASH
-              - AttributeName: transcribedAt
-                KeyType: RANGE
-            Projection:
-#              NonKeyAttributes:
-#                - user_id
-#                - user_organization_id
-#              ProjectionType: INCLUDE
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
+#    transcriptionTable:
+#      Type: 'AWS::DynamoDB::Table'
+#      DeletionPolicy: Retain
+#      Properties:
+#        TableName: 'transcription_table'
+#        AttributeDefinitions:
+#          - AttributeName: fileName
+#            AttributeType: S
+#          - AttributeName: xfTaskId
+#            AttributeType: S
+#          - AttributeName: transcribedAt
+#            AttributeType: S
+#        KeySchema:
+#          - AttributeName: transcribedAt
+#            KeyType: HASH
+#        ProvisionedThroughput:
+#          ReadCapacityUnits: 5
+#          WriteCapacityUnits: 5
+#        GlobalSecondaryIndexes:
+#          - IndexName: xfTaskId-index
+#            KeySchema:
+#              - AttributeName: xfTaskId
+#                KeyType: HASH
+#            Projection:
+#              ProjectionType: ALL
+#            ProvisionedThroughput:
+#              ReadCapacityUnits: 1
+#              WriteCapacityUnits: 1
+#
+#          - IndexName: file-time-index
+#            KeySchema:
+#              - AttributeName: fileName
+#                KeyType: HASH
+#              - AttributeName: transcribedAt
+#                KeyType: RANGE
+#            Projection:
+##              NonKeyAttributes:
+##                - user_id
+##                - user_organization_id
+##              ProjectionType: INCLUDE
+#              ProjectionType: ALL
+#            ProvisionedThroughput:
+#              ReadCapacityUnits: 1
+#              WriteCapacityUnits: 1
 
 
 

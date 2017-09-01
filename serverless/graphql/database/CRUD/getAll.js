@@ -6,6 +6,7 @@ let docClient = new AWS.DynamoDB.DocumentClient();
  * Get all items from table
  * @param {string} tableName
  * @param {object} [options] - scan options
+ * @return {Promise.<Array.<*>>}
  * */
 const getAll = (tableName, options={}) => {
   const {projectionExpression} = options;
