@@ -16,14 +16,35 @@ if (!process.env.PRODUCTION_MODE) {
     region: "us-west-2",
   });
 }
+//
+// const updateAll = require('../graphql/database/CRUD/updateAll');
+// const TableName = require('../graphql/database/config').RawSpeechTable;
+//
+// // dynamodb.describeTable()
+// // docClient.table
+//
+// return updateAll(TableName, ["fileName"], {compandId: "test2"}, true)
+//     .catch(err => {
+//       console.log("promise err", err);
+//     });
 
-const updateAll = require('../graphql/database/CRUD/updateAll');
-const TableName = require('../graphql/database/config').RawSpeechTable;
+var params = {
+  TableName: 'Table',
+  IndexName: 'Index',
+  KeyConditionExpression: 'HashKey = :hkey and RangeKey > :rkey',
+  ExpressionAttributeValues: {
+    ':hkey': 'key',
+    ':rkey': 2015
+  }
+};
 
-// dynamodb.describeTable()
-// docClient.table
+var documentClient = new AWS.DynamoDB.DocumentClient();
 
-return updateAll(TableName, ["fileName"], {compandId: "test2"}, true)
-    .catch(err => {
-      console.log("promise err", err);
-    });
+documentClient.query(params, function(err, data) {
+  if (err) console.log(err);
+  else console.log(data);
+});
+
+
+
+

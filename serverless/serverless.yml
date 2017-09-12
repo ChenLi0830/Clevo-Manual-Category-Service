@@ -79,6 +79,7 @@ provider:
 package:
   exclude:
     - "dev/**"
+    - "oneTime/**"
     - "**/test.js"
     - "**.test.js"
 #  include:
@@ -178,81 +179,83 @@ functions:
 #       Description: "Description for the output"
 #       Value: "Some output value"
 
-resources:
-  Resources:
-    ManualOperatorTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        TableName: 'Clevo-Manual-Operators'
-        AttributeDefinitions:
-          -
-            AttributeName: cellphone
-            AttributeType: S
-        KeySchema:
-          -
-            AttributeName: cellphone
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+# resources:
+#   Resources:
+#     ManualOperatorTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         TableName: 'Clevo-Manual-Operators'
+#         AttributeDefinitions:
+#           -
+#             AttributeName: cellphone
+#             AttributeType: S
+#         KeySchema:
+#           -
+#             AttributeName: cellphone
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
 
-    CategorizedSpeechTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        TableName: 'Clevo-Categorized-Speech-Table'
-        AttributeDefinitions:
-          - AttributeName: fileName
-            AttributeType: S
-          - AttributeName: operatorId
-            AttributeType: S
-        KeySchema:
-          - AttributeName: fileName
-            KeyType: HASH
-          - AttributeName: operatorId
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+#     CategorizedSpeechTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         TableName: 'Clevo-Categorized-Speech-Table'
+#         AttributeDefinitions:
+#           - AttributeName: fileName
+#             AttributeType: S
+#           - AttributeName: operatorId
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: fileName
+#             KeyType: HASH
+#           - AttributeName: operatorId
+#             KeyType: RANGE
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
 
-    CategorizedSentenceTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        TableName: 'Clevo-Categorized-Sentence-Table'
-        AttributeDefinitions:
-          - AttributeName: categoryName
-            AttributeType: S
-          - AttributeName: fileNameBeginTime
-            AttributeType: S
-        KeySchema:
-          - AttributeName: categoryName
-            KeyType: HASH
-          - AttributeName: fileNameBeginTime
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+#     CategorizedSentenceTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         TableName: 'Clevo-Categorized-Sentence-Table'
+#         AttributeDefinitions:
+#           - AttributeName: categoryName
+#             AttributeType: S
+#           - AttributeName: fileNameBeginTime
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: categoryName
+#             KeyType: HASH
+#           - AttributeName: fileNameBeginTime
+#             KeyType: RANGE
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
 
-    RawSpeechTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        TableName: 'Clevo-Raw-Speech-Table'
-        AttributeDefinitions:
-          - AttributeName: fileName
-            AttributeType: S
-#          - AttributeName: xfTaskId
-#            AttributeType: S
-#          - AttributeName: transcribedAt
-#            AttributeType: S
-        KeySchema:
-          - AttributeName: fileName
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
+#     RawSpeechTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         TableName: 'Clevo-Raw-Speech-Table'
+#         AttributeDefinitions:
+#           - AttributeName: fileName
+#             AttributeType: S
+# #          - AttributeName: xfTaskId
+# #            AttributeType: S
+# #          - AttributeName: transcribedAt
+# #            AttributeType: S
+#         KeySchema:
+#           - AttributeName: fileName
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 5
+#           WriteCapacityUnits: 5
+
+
 #        GlobalSecondaryIndexes:
 #          - IndexName: xfTaskId-index
 #            KeySchema:
