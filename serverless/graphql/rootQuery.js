@@ -18,10 +18,25 @@ const OperatorType = require('./types/OperatorType');
 const SentenceType = require('./types/SentenceType');
 const SpeechType = require('./types/SpeechType');
 const RawSpeechType = require('./types/RawSpeechType');
+const ProcessedSpeechType = require('./types/ProcessedSpeechType');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    allProcessedSpeech: {
+      type: new GraphQLList(ProcessedSpeechType),
+      // args: {fileName: {type: GraphQLString}},
+      resolve: (parentValue, args) => {
+        return db.processedSpeechGetAll();
+      }
+    },
+    processedSpeech: {
+      type: ProcessedSpeechType,
+      args: {fileName: {type: GraphQLString}},
+      resolve: (parentValue, args) => {
+        return db.processedSpeechGet(args.fileName);
+      }
+    },
     operator: {
       type: OperatorType,
       args: {cellphone: {type: GraphQLString}},

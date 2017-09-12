@@ -1,5 +1,8 @@
 'use strict';
 
+const processedSpeechGet = require('./CRUD/processedSpeechGet');
+const processedSpeechGetAll = require('./CRUD/processedSpeechGetAll');
+
 const operatorGet = require('./CRUD/operatorGet');
 const operatorCreate = require('./CRUD/operatorCreate');
 const operatorUpdate = require('./CRUD/operatorUpdate');
@@ -24,6 +27,8 @@ const rawSpeechListQueryInTaskIdIndex = require('./CRUD/rawSpeechListQueryInTask
 const rawSpeechListQueryInFileTimeIndex = require('./CRUD/rawSpeechListQueryInFileTimeIndex');
 
 module.exports = {
+  processedSpeechGet,
+  processedSpeechGetAll,
   operatorGet,
   operatorCreate,
   operatorUpdate,
