@@ -27,7 +27,8 @@ const CategorizedTranscriptType = new GraphQLObjectType({
     speaker: {type: GraphQLString},
     alertWords: {type: new GraphQLList(GraphQLString)},
     bannedWords: {type: new GraphQLList(GraphQLString)},
-    categories: {type: new GraphQLList(GraphQLString)},
+    categories: {type: GraphQLString},
+    // categories: {type: new GraphQLList(GraphQLString)},
   })
 });
 
@@ -43,7 +44,7 @@ const ProcessedSpeechType = new GraphQLObjectType({
     speaker1TalkDuration: {type: GraphQLFloat},
     speaker2TalkDuration: {type: GraphQLFloat},
     categorizeResult: {type: new GraphQLList(CategorizedTranscriptType)},
-    
+    updatedAt: {type: GraphQLInt},
     totalEmoScore: {type: GraphQLFloat},
     totalToneScore: {type: GraphQLFloat},
     abnormalEmotions: {
